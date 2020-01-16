@@ -1,10 +1,16 @@
 # Project Name : Emotion-recognition
 
-Forked and enchanced code from https://github.com/omar178.
+Emotion recognition toolkit, forked and enchanced from https://github.com/omar178.
 
-Emotion recognition toolkit.
-It uses face tracking 
-It fork fast event without GPU support.
+Features:
+
+* It uses face tracking.
+* It fork fast event on CPU (without GPU support).
+* In my tests it detects "happinness" by smiling, "angry" or "sad" by shrinking nose,
+and "surprised" by opening mouth (sometimes).
+* Provided example sends OSC messages for using this emotions probabilities  into other applications.
+* Very simple installation.
+
 
 # Table of Content :
 1.[Description](#p1)
@@ -37,15 +43,9 @@ Emotion recognition is a technique used in software that allows a program to "re
 
 Toolkit works in Python 3.6.3 and higher.
 
-Reauirements:
-* keras
-* tensorflow
-* imutils
-* cv2
-* numpy
-* python-osc
+It uses OpenCV and Keras/TensorFlow.
 
-To install it call:
+To install it just call:
 
 pip install -r requirements.txt
 

@@ -18,10 +18,10 @@ EMOTIONS = ["angry" ,"disgust","scared", "happy", "sad", "surprised",
 
 
 #OSC sender setup
-osc_send_ip = "localhost"
+osc_send_ip = "127.0.0.1"
 osc_send_port = 12350
 osc_sender = udp_client.SimpleUDPClient(osc_send_ip, osc_send_port)
-   
+osc_debug_was_printed = 0
    
    
 # starting video streaming
@@ -54,7 +54,10 @@ while True:
         label = EMOTIONS[preds.argmax()]
 
 
- 
+        #print OSC info just once
+        if osc_debug_was_printed == 0:
+            print('Sending OSC ' + osc_send_ip + ':' + str(osc_send_port))
+
         for (i, (emotion, prob)) in enumerate(zip(EMOTIONS, preds)):
                 #construct the label text
                 text = "{}: {:.2f}%".format(emotion, prob * 100)
@@ -72,8 +75,18 @@ while True:
                               
                 #send OSC
                 osc_sender.send_message('/' + emotion, float(prob))
-                #print('sent /' + emotion + ' ' + str(prob))
-                              
+                                        
+                #print OSC info just once
+                if osc_debug_was_printed == 0:
+                    print('    OSC sent /' + emotion + ' ' + str(prob))
+
+        
+        #mark that we printed OSC info
+        if osc_debug_was_printed == 0:
+            osc_debug_was_printed = 1
+            print('We will continue to send OSC messages, but will not print into console...')
+            print('Press ESC to exit')
+                
     else: 
 	    cv2.putText(frameClone,'No face detected', (10, 10),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
