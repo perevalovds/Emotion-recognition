@@ -1,8 +1,15 @@
 # Project Name : Emotion-recognition
+
+Forked and enchanced code from https://github.com/omar178.
+
+Emotion recognition toolkit.
+It uses face tracking 
+It fork fast event without GPU support.
+
 # Table of Content :
 1.[Description](#p1)
 
-2.[Installations](#p2)
+2.[Installation](#p2)
 
 3.[Usage](#p3)
 
@@ -26,23 +33,44 @@ Our Human face is having a mixed emotions so we are to demonstrate the probabili
 Emotion recognition is a technique used in software that allows a program to "read" the emotions on a human face using advanced image processing. Companies have been experimenting with combining sophisticated algorithms with image processing techniques that have emerged in the past ten years to understand more about what an image or a video of a person's face tells us about how he/she is feeling and not just that but also showing the probabilities of mixed emotions a face could has.
 
 <a id="p2"></a> 
-# Installations:
--keras
+# Installation:
 
--imutils
+Toolkit works in Python 3.6.3 and higher.
 
--cv2
+Reauirements:
+* keras
+* tensorflow
+* imutils
+* cv2
+* numpy
+* python-osc
 
--numpy
+To install it call:
+
+pip install -r requirements.txt
+
+(See setup.py for the details)
 
 <a id="p3"></a> 
 # Usage:
 
-The program will creat a window to display the scene capture by webcamera and a window representing the probabilities of detected emotions.
+The program will create a window to display the scene capture by webcamera and a window representing the probabilities of detected emotions.
 
 > Demo
 
-python real_time_video.py
+python real_time_video_osc.py
+
+This example does the following:
+* captures images from webcamera and draws it in a window, 
+* detects face,
+* if face is detected, computes probabilities of emotions and draws it in a separate window
+* sends OSC messages for probabilities to use this data in your external applications (for control robots, etc.)
+
+Press ESC to exit.
+
+** Note: lighting conditions can be important for accurate detection, so please try to achieve no-shadows capturing
+(for example, place some light source in the front of the face).
+
 
 You can just use this with the provided pretrained model i have included in the path written in the code file, i have choosen this specificaly since it scores the best accuracy, feel free to choose any but in this case you have to run the later file train_emotion_classifier
 > If you just want to run this demo, the following content can be skipped
