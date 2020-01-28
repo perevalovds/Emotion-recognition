@@ -48,36 +48,40 @@ while True:
         preds = emotion_classifier.predict(roi)[0]
         emotion_probability = np.max(preds)
         label = EMOTIONS[preds.argmax()]
-    else: continue
+        
+        cv2.putText(frameClone, label, (fX, fY - 10),
+        cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 1, cv2.LINE_AA)
+        cv2.rectangle(frameClone, (fX, fY), (fX + fW, fY + fH), (0, 0, 255), 2)
+
 
  
-    for (i, (emotion, prob)) in enumerate(zip(EMOTIONS, preds)):
-                # construct the label text
-                text = "{}: {:.2f}%".format(emotion, prob * 100)
+        for (i, (emotion, prob)) in enumerate(zip(EMOTIONS, preds)):
+            # construct the label text
+            text = "{}: {:.2f}%".format(emotion, prob * 100)
 
-                # draw the label + probability bar on the canvas
-               # emoji_face = feelings_faces[np.argmax(preds)]
+            # draw the label + probability bar on the canvas
+            # emoji_face = feelings_faces[np.argmax(preds)]
 
                 
-                w = int(prob * 300)
-                cv2.rectangle(canvas, (7, (i * 35) + 5),
-                (w, (i * 35) + 35), (0, 0, 255), -1)
-                cv2.putText(canvas, text, (10, (i * 35) + 23),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.45,
-                (255, 255, 255), 2)
-                cv2.putText(frameClone, label, (fX, fY - 10),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
-                cv2.rectangle(frameClone, (fX, fY), (fX + fW, fY + fH),
-                              (0, 0, 255), 2)
+            w = int(prob * 300)
+            cv2.rectangle(canvas, (7, (i * 35) + 5), (7 + w, (i * 35) + 35), (0, 0, 255), -1)
+            cv2.putText(canvas, text, (10, (i * 35) + 23),
+            cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1, cv2.LINE_AA)
 #    for c in range(0, 3):
 #        frame[200:320, 10:130, c] = emoji_face[:, :, c] * \
 #        (emoji_face[:, :, 3] / 255.0) + frame[200:320,
 #        10:130, c] * (1.0 - emoji_face[:, :, 3] / 255.0)
 
+    else: 
+	    cv2.putText(frameClone,'No face detected', (10, 10),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 1, cv2.LINE_AA)
 
     cv2.imshow('your_face', frameClone)
     cv2.imshow("Probabilities", canvas)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    
+    #Press ESC to exit
+    key = cv2.waitKey(1)
+    if key == 27: 
         break
 
 camera.release()

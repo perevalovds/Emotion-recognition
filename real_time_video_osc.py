@@ -53,6 +53,8 @@ while True:
         emotion_probability = np.max(preds)
         label = EMOTIONS[preds.argmax()]
 
+        cv2.putText(frameClone, label, (fX, fY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 1, cv2.LINE_AA)
+        cv2.rectangle(frameClone, (fX, fY), (fX + fW, fY + fH), (0, 0, 255), 2)
 
         #print OSC info just once
         if osc_debug_was_printed == 0:
@@ -64,14 +66,9 @@ while True:
                 
                 w = int(prob * 300)
                 cv2.rectangle(canvas, (7, (i * 35) + 5),
-                (w, (i * 35) + 35), (0, 0, 255), -1)
-                cv2.putText(canvas, text, (10, (i * 35) + 23),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.45,
-                (255, 255, 255), 2)
-                cv2.putText(frameClone, label, (fX, fY - 10),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
-                cv2.rectangle(frameClone, (fX, fY), (fX + fW, fY + fH),
-                              (0, 0, 255), 2)
+                (7 + w, (i * 35) + 35), (0, 0, 255), -1)
+                cv2.putText(canvas, text, (10, (i * 35) + 23), cv2.FONT_HERSHEY_SIMPLEX, 0.45,
+                (255, 255, 255), 1, cv2.LINE_AA)
                               
                 #send OSC
                 osc_sender.send_message('/' + emotion, float(prob))
@@ -89,7 +86,7 @@ while True:
                 
     else: 
 	    cv2.putText(frameClone,'No face detected', (10, 10),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
+                cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 1, cv2.LINE_AA)
 
     cv2.imshow('your_face', frameClone)
     cv2.imshow("Probabilities", canvas)
