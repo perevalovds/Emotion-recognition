@@ -47,7 +47,9 @@ It uses OpenCV and Keras/TensorFlow.
 
 To install it just call:
 
-pip install -r requirements.txt
+* **install_windows.bat** in Windows
+
+* **pip install -r requirements.txt** in non-Windows
 
 (See setup.py for the details)
 
