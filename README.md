@@ -41,7 +41,8 @@ Emotion recognition is a technique used in software that allows a program to "re
 <a id="p2"></a> 
 # Installation:
 
-Toolkit works in Python 3.6.3 and higher.
+Toolkit is tested in Windows 10, Python 3.6.3, 64-bit, but should work in 3.5–3.7 and pip >= 19.0 (because this versions as noted on Tensorflow site).
+
 
 It uses OpenCV and Keras/TensorFlow.
 
